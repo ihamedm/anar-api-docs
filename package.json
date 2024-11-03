@@ -1,0 +1,39 @@
+{
+  "name": "anar-api-docs",
+  "version": "1.0.0",
+  "description": "API Documentation",
+  "main": "index.html",
+  "scripts": {
+    "production:css-app": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/styles.css -o ./dist/styles.css --postcss --minify",
+    "production:js": "cross-env NODE_ENV=development ./node_modules/.bin/esbuild ./assets/js/scripts.js --bundle --outfile=./dist/scripts.js --minify",
+    "dev:css-app": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/styles.css -o ./dist/styles.css --postcss --quiet",
+    "dev:js": "cross-env NODE_ENV=development ./node_modules/.bin/esbuild ./assets/js/scripts.js --bundle --outfile=./dist/scripts.js",
+    "watch:css-app": "cross-env NODE_ENV=development tailwindcss -i ./assets/css/styles.css -o ./dist/styles.css --postcss --watch --quiet",
+    "watch:js": "cross-env NODE_ENV=development ./node_modules/.bin/esbuild ./assets/js/scripts.js --bundle --outfile=./dist/scripts.js --watch",
+    "production": "cross-env NODE_ENV=production concurrently \"npm run production:css-app\" \"npm run production:js\"",
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run dev:css-app\" \"npm run dev:js\"",
+    "watch": "cross-env NODE_ENV=development concurrently \"npm run watch:css-app\" \"npm run watch:js\"",
+    "browser-sync": "cross-env NODE_ENV=development browser-sync start --proxy \"localhost:3000\" --host=\"localhost:3000\" --no-notify --open=false --files=\"./\"",
+    "watch-sync": "clear && cross-env NODE_ENV=development concurrently \"npm run browser-sync\" \"npm run watch\""
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.9",
+    "autoprefixer": "^10.4.14",
+    "browser-sync": "^2.29.1",
+    "concurrently": "^8.0.1",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.17.14",
+    "postcss": "^8.4.21",
+    "postcss-import": "^15.1.0",
+    "postcss-nested-ancestors": "^3.0.0",
+    "tailwindcss": "^3.4.13"
+  },
+  "author": "Hamed Movasaqpoor",
+  "license": "ISC",
+  "dependencies": {
+    "highlight.js": "^11.10.0"
+  }
+}

@@ -1,0 +1,8 @@
+.api-section{
+
+  @apply p-8 mb-8 bg-white border border-slate-200 ;
+
+  .header{
+    @apply border-b border-slate-200 font-bold text-lg py-4 mb-8;
+  }
+}

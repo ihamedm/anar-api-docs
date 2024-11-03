@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
+
+body{
+  font-family: "Vazirmatn", serif;
+  font-optical-sizing: auto;
+
+  @apply text-sm text-slate-700;
+}
+
+.prose {
+  a{
+    &:link{
+      @apply text-blue-700;
+    }
+
+  }
+
+  pre, code{
+    direction: ltr;
+    text-align: left;
+  }
+}

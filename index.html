@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl"> <!-- Set language and direction -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستندات توسعه دهندگان انار۳۶۰API</title>
+    <link href="./dist/styles.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://anar360.com/icons/icon_64x64.png?v1">
+    <!-- Include highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
+
+    <!-- Include highlight.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+</head>
+<body class="bg-slate-50">
+<header class="bg-white py-2 border-b border-0 border-slate-200 sticky top-0 z-10">
+    <div class="container max-w-[1200px]">
+        <div class="flex items-center justify-between">
+            <a href="#" class="flex items-center justify-center gap-4">
+                <img class="w-16" src="assets/img/anar360-logo.svg" alt="انار۳۶۰">
+                <h1 class="font-bold text-base text-slate-700">مستندات API انار۳۶۰</h1>
+            </a>
+
+            <div class="flex gap-6 items-center">
+                <a class="" href="https://anar360.com/#about" target="_blank">نحوه کارکرد انار</a>
+                <a class="bg-slate-100 text-slate-500 font-medium px-6 py-2 rounded-md" href="tel:02191694582" target="_blank">021-91694582</a>
+                <a class="bg-red-700 text-white px-6 py-2 rounded-md" href="https://anar360.com/register" target="_blank">ثبت نام در انار</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container max-w-[1200px] py-4">
+    <section class="flex gap-4">
+        <!-- Sidebar -->
+        <nav class="w-1/4 bg-white py-4 sticky top-20 h-screen border border-slate-200 ">
+            <ul class="nav space-y-2">
+                <li>
+                    <a class="title" href="#start">شروع</a>
+                    <ul class="sub-nav">
+                        <li><a href="#api" class="">API توسعه دهندگان انار</a></li>
+                        <li><a href="#register" class="">ثبت نام</a></li>
+                        <li><a href="#get-token" class="">دریافت توکن</a></li>
+                        <li><a href="#call-api" class="">ساختار درخواست</a></li>
+                    </ul>
+                </li>
+                <li><a class="title" href="#auth">اعتبار سنجی</a></li>
+                <li>
+                    <a class="title" href="#products">محصولات</a>
+                    <ul class="sub-nav">
+                        <li><a href="#products-list" class="">لیست محصولات</a></li>
+                        <li><a href="#categories" class="">دسته بندی های محصولات</a></li>
+                        <li><a href="#attributes" class="">ویژگی های محصولات</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="w-3/4">
+            <section id="start" class="api-section">
+                <h2 class="header">شروع</h2>
+                <div class="prose max-w-full">
+
+                        <section id="api">
+                            <h3 >API توسعه دهندگان انار ۳۶۰</h3>
+                            <p>API توسعه دهندگان بازار یک وب‌سرویس مبتنی بر REST است و به شما این امکان را می‌دهد تا محصولات انار را با جزییات کامل در وب سایت خود وارد کنید و خریدار&nbsp; مستقیما کالاهای انار را در وب سایت شما ببیند.</p>
+                            <p>شما می توانید محصولات انار را در کنار محصولات دیگر خود مدیریت کنید.</p>
+                            <p>API توسعه دهندگان انار این امکان را به شما می دهد که موجودی و قیمت کلیه محصولات خود را دائما بروز کنید و با سرور انار هماهنگ نگه دارید.</p>
+                            <p>&nbsp;</p>
+                            <p>هر کدام از امکانات API، با کمک یک درخواست HTTP قابل دسترسی است. پاسخ هر یک از این درخواست‌ها، اطلاعات، نتایج درخواستی و خطاهای احتمالی از سمت سرور انار، در قالب JSON به شما برگردانده می‌شود. برای اطلاع بیشتر از امکانات و پاسخ‌های آن‌ها، به مرجع API در ادامه این مستندات مراجعه کنید.</p>
+                            <p>&nbsp;</p>
+                            <h3 id="register">ثبت نام</h3>
+                            <p>در ابتدا لازم است در پنل فروشندگان انار به آدرس <a href="https://anar360.com/register">https://anar360.com/register</a> ثبت نام کنید تا پس از بررسی و تایید به عنوان دراپ شیپر پذیرفته شوید.</p>
+
+                        </section>
+                        <section id="get-token">
+                            <h3 >دریافت توکن</h3>
+                            <p>به افرادی/سازمان‌هایی که قصد استفاده از API انار را دارند، یک کلید احراز هویت از سمت انار اختصاص داده می‌شود. پس از ورود به پنل فروشندگان می توانید کلید احراز هویت (توکن) را دریافت کنید.</p>
+                            <p>برای استفاده از API به این کلید نیاز دارید.</p>
+                        </section>
+                        <section id="call-api">
+                            <h3 >ساختار درخواست</h3>
+                            <p>همه APIهای انار از شیوه احراز هویت Bearer Token استفاده می کنند.</p>
+                            <p>به عنوان مثال این API دریافت لیست محصولات است که به صورت زیر فراخوانی می شود:</p>
+                            <pre dir="ltr">https://api.anar360.com/api/360/products</pre>
+                            <p>&nbsp;</p>
+                            <p>curl –location ‘https://api.anar360.com/api/360/products’ \ –header ‘Authorization: Bearer &lt;YOUR_TOKEN&gt;’</p>
+                            <p><strong>خطاهای اعتبارسنجی</strong></p>
+                            <table style="border-collapse: collapse; width: 100%;">
+                                <tbody>
+                                <tr>
+                                    <td style="width: 50%;">کد خطا</td>
+                                    <td style="width: 50%;">توضیح</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">401</td>
+                                    <td style="width: 50%;">توکن ارسالی معتبر نمی باشد.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p>&nbsp;</p>
+                        </section>
+                </div>
+            </section>
+            <section id="auth" class="api-section">
+                <h2 class="header">اعتبارسنجی</h2>
+                <div class="prose max-w-full">
+                        <h2>اعتبارسنجی</h2>
+                        <p>برای بررسی وضعیت معتبر/غیرمعتبر بودن حساب کاربری خود در انار باید API زیر را با متد GET فراخوانی کنید:</p>
+                        <pre dir="ltr"><span data-offset-key="5vnn2-1-0">[GET] https://api.anar360.com/api/360/auth/validate</span></pre>
+                        <p>این متد هیچ پارامتر ورودی ندارد. فقط کافیست توکن خود را در header به شیوه ایی که جلوتر در <a href="#call-api">ساختار درخواست</a> توضیح داده شد ارسال کنید.</p>
+                        <p><strong>نمونه فراخوانی API اعتبار سنجی</strong></p>
+                        <pre dir="ltr">curl --location 'https://api.anar360.com/api/360/auth/validate' \
+--header 'Authorization: Bearer YOUR_TOKEN'</pre>
+                        <p><strong>پاسخ های API اعتبار سنجی</strong></p>
+                        <table style="border-collapse: collapse; width: 100%;">
+                            <tbody>
+                            <tr>
+                                <td style="width: 50%;">200</td>
+                                <td style="width: 50%;">توکن معتبر است</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;">401</td>
+                                <td style="width: 50%;">توکن نامعتبر است</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>در صورتی که توکن معتبر باشد پاسخ زیر را&nbsp; با کد <strong>200</strong> دریافت خواهید کرد:</p>
+                        <pre dir="ltr">{
+"success": true
+}</pre>
+                        <p>در صورتی که توکن معتبر نباشد پاسخ زیر را با کد <strong>401</strong> دریافت می کنید:</p>
+                        <pre>{
+"url": "/api/360/auth/validate",
+"statusCode": 401,
+"statusMessage": "Unauthorized",
+"message": "Unauthorized",
+"stack": ""
+}
+
+</pre>
+                </div>
+            </section>
+
+            <section id="products" class="api-section">
+                <h2 class="header">محصولات</h2>
+                <div class="prose max-w-full">
+                    <section id="products-list">
+                    <h3>لیست محصولات</h3>
+                    <p>این api برای فراخوانی اطلاعات محصولاتی است که کاربر در اکانت انار خود به فروشگاه‌اش اضافه کرده و نمایش محصولات و اطلاعاتشان در وبسایت شما است. !در انار وریشن‌ها به فروش می‌رسند. برای همین هر variation آیدی مختص به خود را دارد که ثبت سفارش هم با آيدی variation محصول انجام می‌شود.</p>
+                        <pre dir="ltr">https://api.anar360.com/api/360/products</pre>
+                        <p><strong>پارامترهای ورودی</strong></p>
+                        <table style="border-collapse: collapse; width: 100%; height: 72px;">
+                            <tbody>
+                            <tr style="height: 24px;">
+                                <td style="width: 50%; height: 24px;">page</td>
+                                <td style="width: 50%; height: 24px;">شماره صفحه</td>
+                            </tr>
+                            <tr style="height: 24px;">
+                                <td style="width: 50%; height: 24px;">limit</td>
+                                <td style="width: 50%; height: 24px;">تعداد محصول در هر صفحه</td>
+                            </tr>
+                            <tr style="height: 24px;">
+                                <td style="width: 50%; height: 24px;">since</td>
+                                <td style="width: 50%; height: 24px;">مدت زمان گذشته (بر حسب میلی ثانیه) از آخرین تغییرات موجودی و قیمت محصول</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>پارامترهای page و limit برای پیجینیشن لیست دریافتی محصولات استفاده می شوند و هر دو پارامتر اختیاری هستند ولی توصیه می شود مقدار limit حداکثر روی عدد 25 تنظیم شود.</p>
+                        <p>پارامتر since یک پارامتی اختیاری است که برای دریافت محصولاتی که اخیرا تغییر موجودی و قیمت داشته اند کاربرد دارد، به این صورت که مثلا برای دریافت لیست محصولاتی که ۲ دقیقه پیش آپدیت شده اند عدد ۲ دقیقه بر حسب میلی ثانیه برای این پارامتر تنظیم می شود.</p>
+                        <p>&nbsp;</p>
+                        <p><strong>نمونه فراخوانی با cURL</strong></p>
+                        <pre dir="ltr">curl --location 'https://api.anar360.com/api/360/products?page=1&amp;limit=1' \
+--header 'Authorization: Bearer YOUR_TOKEN'</pre>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p><strong>پاسخ برگشتی</strong></p>
+                        <p>درصورتی که محصولاتی در پنل انار اضفه کرده باشید و توکن معتبر را در header بفرستید پاسخی مشابه زیر با وضعیت 200 دریافت می‌کنید :</p>
+                        <div>
+                            <pre dir="ltr" class="max-h-[400px] overflow-y-scroll">{
+{
+    "total": 521,
+    "skip": 0,
+    "limit": 1,
+    "items": [
+        {
+            "id": "66f809ced44631957f13d86f",
+            "title": "شامپو پاک کننده و ضد شوره دمودکسیلین",
+            "description": "\"کمک به بهبود شوره سر\n \n تعدیل چربی پوست سر\n \n ضد خارش پوست سر\n مناسب برای انواع مو\n جلوگیری از نازکی و ریزش مو\n دارای ترکیبات گیاهی ضد میکروبی (ضد انگل، ضد باکتری، ضد قارچ)\"",
+            "mainImage": "https://s3.c22.wtf/anar360.com/6ea1460b-0a62-4aca-961d-26cd881a84ff.jpg",
+            "images": [
+                {
+                    "src": "https://s3.c22.wtf/anar360.com/6ea1460b-0a62-4aca-961d-26cd881a84ff.jpg",
+                    "thumbnail": "",
+                    "_type": "image",
+                    "main": false,
+                    "_id": "66fa570ca37e2c3599e4b9cd"
+                }
+            ],
+            "isReseller": false,
+            "attributes": [],
+            "brands": [],
+            "categories": [
+                {
+                    "_id": "66b22b05924f1297d90f356e",
+                    "name": "شامپو",
+                    "attributeIds": [],
+                    "type": "retail",
+                    "order": 0,
+                    "level": "last",
+                    "parent": "66b22b05924f1297d90f356b",
+                    "route": [
+                        "زیبایی و سلامت",
+                        "لوازم بهداشتی",
+                        "شامپو و مراقبت مو",
+                        "شامپو"
+                    ],
+                    "createdAt": "2024-08-06T13:54:13.219Z",
+                    "updatedAt": "2024-10-05T15:28:12.659Z",
+                    "__v": 0
+                }
+            ],
+            "createdAt": "2024-09-28T13:51:10.213Z",
+            "updatedAt": "2024-10-20T08:02:13.843Z",
+            "status": "active",
+            "type": "retail",
+            "resellStatus": "accepted",
+            "shipmentsReferenceId": "66be764e1341a55421ac2efc",
+            "shipmentsReferenceState": "تهران",
+            "shipmentsReferenceCity": "تهران",
+            "shipments": [
+                {
+                    "type": "insideShopCity",
+                    "delivery": [
+                        {
+                            "deliveryType": "bike",
+                            "price": 95000,
+                            "estimatedTime": "ارسال ۱ روزه (سفارشاتی که تا قبل از ساعت ۱۷ ثبت شوند روز کاری بعد ارسال میشوند)",
+                            "freeCondition": {
+                                "purchasesPrice": 5000000
+                            },
+                            "active": true,
+                            "_id": "66be76761341a55421ac3149"
+                        },
+                        {
+                            "deliveryType": "post",
+                            "price": 45000,
+                            "estimatedTime": "سفارشاتی که قبل از ساعت 15:15 هر روز ثبت شوند ساعت 14:00 روز کاری بعدی جهت ارسال تحویل پست و بین 1 الی 3 روز بعد تحویل مشتری می شوند",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": true,
+                            "_id": "66be76761341a55421ac314a"
+                        },
+                        {
+                            "deliveryType": "express",
+                            "price": 75000,
+                            "estimatedTime": "تحویل تمام ایران دو روز پس از ثبت سفارش",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": true,
+                            "_id": "66be76761341a55421ac314b"
+                        },
+                        {
+                            "deliveryType": "tipax",
+                            "price": 50000,
+                            "estimatedTime": "یک روز کاری",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": false,
+                            "_id": "66be76761341a55421ac314c"
+                        },
+                        {
+                            "deliveryType": "chapar",
+                            "price": 50000,
+                            "estimatedTime": "یک روز کاری",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": false,
+                            "_id": "66be76761341a55421ac314d"
+                        }
+                    ],
+                    "active": true,
+                    "_id": "66be76761341a55421ac3148"
+                },
+                {
+                    "type": "insideShopState",
+                    "delivery": [
+                        {
+                            "deliveryType": "post",
+                            "price": 45000,
+                            "estimatedTime": "سفارشاتی که قبل از ساعت 15:15 هر روز ثبت شوند ساعت 14:00 روز کاری بعدی جهت ارسال تحویل پست و بین 1 الی 3 روز بعد تحویل مشتری می شوند",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": true,
+                            "_id": "66be76761341a55421ac314f"
+                        },
+                        {
+                            "deliveryType": "express",
+                            "price": 75000,
+                            "estimatedTime": "تحویل تمام ایران دو روز پس از ثبت سفارش",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": true,
+                            "_id": "66be76761341a55421ac3150"
+                        },
+                        {
+                            "deliveryType": "tipax",
+                            "price": 70000,
+                            "estimatedTime": "بین 2 الی 3 روز کاری",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": false,
+                            "_id": "66be76761341a55421ac3151"
+                        },
+                        {
+                            "deliveryType": "chapar",
+                            "price": 70000,
+                            "estimatedTime": "بین 2 الی 3 روز کاری",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": false,
+                            "_id": "66be76761341a55421ac3152"
+                        },
+                        {
+                            "deliveryType": "bike",
+                            "price": 95000,
+                            "estimatedTime": "ارسال ۱ روزه (سفارشاتی که تا قبل از ساعت ۱۷ ثبت شوند روز کاری بعد ارسال میشوند)",
+                            "freeCondition": {
+                                "purchasesPrice": 5000000
+                            },
+                            "active": true,
+                            "_id": "6703ad810e08eb1efc885dec"
+                        }
+                    ],
+                    "active": true,
+                    "_id": "66be76761341a55421ac314e"
+                },
+                {
+                    "type": "otherStates",
+                    "delivery": [
+                        {
+                            "deliveryType": "post",
+                            "price": 45000,
+                            "estimatedTime": "سفارشاتی که قبل از ساعت 15:15 هر روز ثبت شوند ساعت 14:00 روز کاری بعدی جهت ارسال تحویل پست و بین 2 الی 4 روز بعد تحویل مشتری می شوند",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": true,
+                            "_id": "66be76761341a55421ac3154"
+                        },
+                        {
+                            "deliveryType": "express",
+                            "price": 75000,
+                            "estimatedTime": "تحویل تمام ایران دو روز پس از ثبت سفارش",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": true,
+                            "_id": "66be76761341a55421ac3155"
+                        },
+                        {
+                            "deliveryType": "tipax",
+                            "price": 80000,
+                            "estimatedTime": "بین 3 الی 4 روز کاری",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": false,
+                            "_id": "66be76761341a55421ac3156"
+                        },
+                        {
+                            "deliveryType": "chapar",
+                            "price": 80000,
+                            "estimatedTime": "بین 3 الی 4 روز کاری",
+                            "freeCondition": {
+                                "purchasesPrice": 0
+                            },
+                            "active": false,
+                            "_id": "66be76761341a55421ac3157"
+                        },
+                        {
+                            "deliveryType": "bike",
+                            "price": 95000,
+                            "estimatedTime": "ارسال ۱ روزه مخصوص کرج (سفارشاتی که تا قبل از ساعت ۱۷ ثبت شوند روز کاری بعد ارسال میشوند)",
+                            "freeCondition": {
+                                "purchasesPrice": 5000000
+                            },
+                            "active": true,
+                            "_id": "6703ad810e08eb1efc885df2"
+                        }
+                    ],
+                    "active": true,
+                    "_id": "66be76761341a55421ac3153"
+                }
+            ],
+            "variants": [
+                {
+                    "_id": "670a17154069dbabe2cb9f04",
+                    "attributes": {},
+                    "stock": 4,
+                    "price": 237300,
+                    "priceForResell": 237300,
+                    "isReseller": true,
+                    "resellCreatedAt": "2024-09-28T13:53:34.103Z",
+                    "resellUpdatedAt": "2024-10-20T08:02:14.072Z",
+                    "resellStatus": "accepted",
+                    "resellerProfit": 0,
+                    "sellerDiscount": 0,
+                    "type": "retail"
+                }
+            ]
+        }
+    ]
+}
+</pre>
+                        </div>
+                        <div></div>
+                        <div><strong>پارامترهای پاسخ برگشتی</strong></div>
+                        <div>
+                            <table style="border-collapse: collapse; width: 100%;">
+                                <tbody>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>&nbsp;</p>
+                    </section>
+                    <section id="categories">
+                        <h3>دسته بندی محصولات</h3>
+                        <p>محصولات در انار، دسته‌بندی مختص به خود را دارا هستند. لازم است که این دسته‌بندی‌ها با دسته‌بندی‌های داخل وبسایت شما مپ شوند. از این جهت، تمام دسته‌بندی‌های محصولاتی که در پنل انار شما افزوده شده است در یک api جداگانه به شما داده شده است.</p>
+                        <pre dir="ltr">https://api.anar360.com/api/360/categories</pre>
+                        <p>&nbsp;</p>
+                        <p><strong>پارامترهای ورودی</strong></p>
+                        <table style="border-collapse: collapse; width: 100%; height: 72px;">
+                            <tbody>
+                            <tr style="height: 24px;">
+                                <td style="width: 50%; height: 24px;">page</td>
+                                <td style="width: 50%; height: 24px;">شماره صفحه</td>
+                            </tr>
+                            <tr style="height: 24px;">
+                                <td style="width: 50%; height: 24px;">limit</td>
+                                <td style="width: 50%; height: 24px;">تعداد دسته بندی در هر صفحه</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>پارامترهای page و limit مشابه API محصولات عمل می کند.</p>
+                        <p>&nbsp;</p>
+                        <p><strong>نمونه فراخوانی با cURL</strong></p>
+                        <pre dir="ltr">curl --location 'https://api.anar360.com/api/360/categories?page=1&amp;limit=25' \
+--header 'Authorization: Bearer YOUR_TOKEN'</pre>
+                        <p>&nbsp;</p>
+                        <p><strong>نمونه پاسخ برگشتی</strong></p>
+                        <pre dir="ltr" class="max-h-[400px] overflow-y-scroll">
+                            {
+    "total": 68,
+    "skip": 0,
+    "limit": 2,
+    "items": [
+        {
+            "_id": "64ac6b76878e92615233f03b",
+            "name": "کفش زنانه و مردانه",
+            "attributeIds": [
+                "64008cca64332f981a2908a4",
+                "64008cca64332f981a2908a7",
+                "64008cca64332f981a2908aa",
+                "64008cca64332f981a2908ad",
+                "64008cca64332f981a2908a4"
+            ],
+            "type": "retail",
+            "level": "hasChildren",
+            "parent": "64ac6b76878e92615233f036",
+            "route": [
+                "مد و پوشاک",
+                "زنانه و مردانه",
+                "کفش زنانه و مردانه"
+            ],
+            "createdAt": "2023-07-10T20:35:02.131Z",
+            "updatedAt": "2024-10-05T15:28:12.659Z",
+            "__v": 0,
+            "order": 0,
+            "key": "Women's and men's shoes"
+        },
+        {
+            "_id": "655e8abcb595023e89a09422",
+            "name": "سایر لوازم جانبی موبایل و تبلت",
+            "attributeIds": [
+                "64008cca64332f981a2908a4",
+                "64008cca64332f981a2908a7",
+                "64008cca64332f981a2908aa",
+                "64008cca64332f981a2908ad",
+                "64008cca64332f981a2908a4"
+            ],
+            "type": "retail",
+            "order": 0,
+            "key": "Other mobile and tablet accessories",
+            "level": "hasChildren",
+            "parent": "65537d17e5689abc14616b7e",
+            "route": [
+                "کالای دیجیتال",
+                "لوازم جانبی موبایل",
+                "سایر لوازم جانبی موبایل و تبلت"
+            ],
+            "createdAt": "2023-11-22T23:11:56.678Z",
+            "updatedAt": "2024-10-05T15:28:12.659Z",
+            "__v": 0
+        }
+    ]
+}
+                        </pre>
+                        <p>&nbsp;</p>
+                        <div><strong>پارامترهای پاسخ برگشتی</strong></div>
+                        <div>
+                            <table style="border-collapse: collapse; width: 100%;">
+                                <tbody>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                    </section>
+                    <section id="attributes">
+                        <h3>ویژگی های محصولات</h3>
+                        <p>محصولات در انار، ویژگی های مختص به خود را دارا هستند و محصولات متغییر بر اساس این ویژگی ها ساخته می شوند. لازم است که این ویژگی ها با ویژگی های داخل وبسایت شما مپ شوند. از این جهت، تمام ویژگی های محصولاتی که در پنل انار شما افزوده شده است در یک api جداگانه به شما داده شده است.</p>
+                        <pre dir="ltr">https://api.anar360.com/api/360/attributes</pre>
+                        <p>&nbsp;</p>
+                        <p><strong>پارامترهای ورودی</strong></p>
+                        <table style="border-collapse: collapse; width: 100%; height: 72px;">
+                            <tbody>
+                            <tr style="height: 24px;">
+                                <td style="width: 50%; height: 24px;">page</td>
+                                <td style="width: 50%; height: 24px;">شماره صفحه</td>
+                            </tr>
+                            <tr style="height: 24px;">
+                                <td style="width: 50%; height: 24px;">limit</td>
+                                <td style="width: 50%; height: 24px;">تعداد ویژگی در هر صفحه</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>پارامترهای page و limit مشابه API محصولات عمل می کند.</p>
+                        <p>&nbsp;</p>
+                        <p><strong>نمونه فراخوانی با cURL</strong></p>
+                        <pre dir="ltr">curl --location 'https://api.anar360.com/api/360/attributes?page=1&amp;limit=25' \
+--header 'Authorization: Bearer YOUR_TOKEN'</pre>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p><strong>نمونه پاسخ برگشتی</strong></p>
+                        <pre dir="ltr" class="max-h-[400px] overflow-y-scroll">
+{
+    "total": 4,
+    "skip": 0,
+    "limit": 2,
+    "items": [
+        {
+            "key": "جنس",
+            "name": "جنس",
+            "values": [],
+            "count": 0
+        },
+        {
+            "key": "رنگ",
+            "name": "رنگ",
+            "values": [
+                "وودو",
+                "کرم سبز قرمز",
+                "کرم آبی سفید",
+                "ونوم",
+                "موینگ بلک",
+                "سفید سبز کرم",
+                "پی آر ام شتری",
+                "اشبالت کرم",
+                "سفید",
+                "مشکی"
+            ],
+            "count": 0
+        }
+    ]
+}
+                        </pre>
+                        <p>&nbsp;</p>
+                        <div><strong>پارامترهای پاسخ برگشتی</strong></div>
+                        <div>
+                            <table style="border-collapse: collapse; width: 100%;">
+                                <tbody>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                    <td style="width: 33.3333%;"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    </div>
+            </section>
+
+        </main>
+    </section>
+</div>
+
+<button id="goToTop" class="fixed bottom-4 right-4 bg-blue-600 text-white p-2 rounded-full hidden" >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+    </svg>
+</button>
+<script src="dist/scripts.js"></script>
+</body>
+</html>
